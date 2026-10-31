@@ -253,7 +253,7 @@ export default {
       this.raf = requestAnimationFrame(loop);
     };
     if (micBtn) ctx.on(micBtn, 'click', () => { if (this.ac?.state === 'suspended') this.ac.resume(); listen(); });
-    if (micBtn) micGranted().then(ok => ok && listen());
+    if (micBtn) ctx.after(R ? 200 : 1800, listen);   // ask for the mic right here on the cake page, once the cake has appeared
     ctx.on(el, 'pointerdown', () => { if (this.ac?.state === 'suspended') this.ac.resume(); });
 
     /* all out: the Hush (input locked, ~9s) */

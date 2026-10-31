@@ -1,7 +1,7 @@
 /* Scene 1 · press — Press Check. Feeling: ANTICIPATION, the held breath. */
 import { isUnlocked } from '../manager.js';
 import { openVault, normalize } from '../vault.js';
-import { requestMic } from '../mic.js';
+
 const gsap = window.gsap;
 
 /* A hand-nudged closed ring: points around a circle with seeded wobble, smoothed (Catmull-Rom -> cubic). */
@@ -261,7 +261,6 @@ export default {
       // ask for sound + mic right at the start (this tap is the user gesture browsers need)
       if (!ctx.sound.on) ctx.sound.toggle(); else ctx.sound.unlock();
       document.dispatchEvent(new Event('soundchange'));
-      if (ctx.config.features?.micBlow) requestMic();
       if (isUnlocked()) { ctx.complete(); ctx.next(); return; }   // she already said the magic word on this device
       gsap.to(strike, { opacity: 0, duration: R ? 0.1 : 0.35, ease: 'power2.in', onComplete: () => {
         strike.hidden = true; lock.hidden = false;
