@@ -18,7 +18,7 @@ export default {
       "press": "tap “open your copy”, then say the magic word 🔒",
       "cover": "tap anywhere on the cover to make art ✨",
       "release": "sign the form… or think about it first 🖋",
-      "cake": "allow the mic "cake": "press & hold anywhere to blow the candles 🎂" blow on your screen 🌬️ (or press "cake": "press & hold anywhere to blow the candles 🎂" hold)",
+      "cake": "allow the mic & blow on your screen 🌬️ (or press & hold)",
       "edit": "tap each passport stamp ✈️",
       "gifts": "tap each gift to unwrap it 🎁",
       "specimens": "tap anywhere to add a flower 💐 (19 of them!)",
