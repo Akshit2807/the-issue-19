@@ -1,0 +1,32 @@
+/* Scene 7 · The Night Garden — midnight-blue sky, neon-soft blooms */
+.garden { position: absolute; inset: 0; overflow: hidden; touch-action: manipulation; cursor: crosshair; container: garden / size;
+  background: radial-gradient(120% 70% at 50% 0%, #22327a 0%, #141a3c 45%, #0d0f1c 100%); color: var(--paper); }
+.sky { position: absolute; inset: 0; pointer-events: none; }
+.star { position: absolute; width: var(--s); height: var(--s); border-radius: 50%; background: #fff; opacity: .7; animation: twinkle var(--d) ease-in-out infinite alternate; }
+@keyframes twinkle { to { opacity: .15; scale: .6; } }
+.moon { position: absolute; right: 10%; top: calc(var(--sat) + 120px); width: 54px; height: 54px; border-radius: 50%; background: #F5E4DC; box-shadow: 0 0 40px 10px rgb(245 228 220 / .25), inset -12px -6px 0 0 #e3cbbd; }
+.g-head { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--sat) + 56px); pointer-events: none; }
+.g-title { font-size: clamp(44px, 12.5cqi, 84px); color: var(--paper); font-style: italic; }
+.g-deck { margin-top: 10px; max-width: 30ch; color: rgb(241 234 221 / .85); }
+.g-count { position: absolute; left: var(--gutter); top: calc(var(--sat) + 210px); display: flex; align-items: baseline; gap: 6px; pointer-events: none; }
+.g-count b { display: inline-block; font: italic 900 56px/1 var(--f-bodoni); color: #FFC23D; }
+.g-count span { font: 500 13px var(--f-mono); color: rgb(241 234 221 / .6); }
+.g-reason { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--sat) + 280px); z-index: 3; margin-inline: auto; width: fit-content; max-width: 340px;
+  padding: 10px 16px 8px; border-radius: 14px; background: var(--paper); color: var(--ink); text-align: center;
+  font: 400 24px/1.05 var(--f-hand); box-shadow: 0 10px 30px -10px rgb(0 0 0 / .6); pointer-events: none; }
+.g-reason:empty { display: none; }
+.bed { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.bed .stem { fill: none; stroke: #5FBF8A; stroke-width: 3; stroke-linecap: round; }
+.bed .leaf { fill: #5FBF8A; }
+.bed .bl-in { filter: drop-shadow(0 0 8px rgb(255 255 255 / .25)); }
+.ground { position: absolute; left: 0; right: 0; bottom: 0; height: 14%; z-index: 1; background: linear-gradient(#1d3a2c, #0d1a14); border-top: 2px solid #2f6b4c; }
+.g-tap { position: absolute; left: 0; right: 0; bottom: calc(14% + 90px); text-align: center; font: 400 26px var(--f-hand); color: #FFC23D; pointer-events: none; animation: gtap 1.2s ease-in-out infinite; }
+@keyframes gtap { 50% { translate: 0 -6px; } }
+.petals { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.petal { position: absolute; top: 0; width: 12px; height: 16px; border-radius: 80% 0 80% 0; }
+@media (min-width: 1024px) { .g-head { left: 48px; top: 56px; } .g-count { left: 48px; top: 230px; } .g-reason { top: 300px; } .moon { top: 80px; } }
+@media (prefers-reduced-motion: reduce) { .star, .g-tap { animation: none; } }
+
+/* bouquet: kraft-paper cone with a red bow; stems disappear into it */
+.wrap { position: absolute; left: 50%; top: calc(72% - 56px); width: min(56%, 270px); translate: -50% 0; z-index: 3; pointer-events: none; transform-origin: 50% 0%; filter: drop-shadow(0 14px 22px rgb(0 0 0 / .45)); }
+.g-tap { bottom: auto; top: 58%; }

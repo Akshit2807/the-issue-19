@@ -1,0 +1,107 @@
+/* Scene 6 · gifts — paper + marble plinth. Accents: red, cobalt (envelope lining only). */
+.gifts { position: absolute; inset: 0; --plinth: 28%; }
+.gifts-head { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--sat) + 96px); }
+.gifts-title { font-size: clamp(44px, 12.5cqi, 80px); }
+.gifts-deck { margin-top: 16px; color: var(--ink); }
+/* an auction-catalogue strip */
+.lots { margin-top: 26px; padding: 7px 0 6px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); font-size: 10px; line-height: 1.5; text-align: center; }
+.gifts-note { right: var(--gutter); top: calc(var(--sat) + 290px); max-width: 12ch; text-align: right; font-size: 30px; line-height: .95; transform: rotate(-5deg); }
+.blink-note { left: var(--gutter); top: calc(var(--sat) + 360px); max-width: 17ch; font-size: 26px; line-height: 1; transform: rotate(2deg); }
+
+.plinth { position: absolute; left: 0; right: 0; bottom: 0; height: var(--plinth); border-top: 1px solid var(--ink); box-shadow: 0 -1px 0 rgb(20 18 16 / .05), 0 -12px 30px -18px rgb(20 18 16 / .35); overflow: hidden; }
+.plinth img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.25) saturate(.8) brightness(1.02); } /* warm marble: no cool grey in a warm issue */
+.plinth::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--espresso); opacity: .08; mix-blend-mode: multiply; }
+.plinth::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(rgb(255 255 255 / .18), transparent 18%, rgb(20 18 16 / .08)); }
+
+.stage-row {
+  position: absolute; left: calc(var(--gutter) - 8px); right: calc(var(--gutter) - 8px); bottom: calc(var(--plinth) - 2px); height: 130px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 100px)) 1fr; gap: 2px; align-items: end;
+}
+.stage-row::before { content: ""; position: absolute; left: -12%; right: -12%; bottom: 0; height: 300px; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 55% 75% at 45% 100%, rgb(255 251 243 / .85), rgb(255 251 243 / 0) 70%); }
+.gift { position: relative; z-index: 2; width: 100%; aspect-ratio: 1; display: block; transition: filter var(--d-xs); }
+.gift svg { width: 100%; height: 100%; overflow: visible; scale: 1.12; }
+.gift .g-fill { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.gift .g-line { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.gift:active svg { scale: 1.08; }
+.gift svg { transition: scale var(--d-tap) var(--snap), transform var(--d-xs) var(--couture); transform-origin: 50% 100%; }
+@media (hover: hover) { .gift:not([aria-disabled]):hover svg { transform: translateY(-3px) rotate(-1.5deg); } }
+
+.cat { position: absolute; right: -4px; bottom: 0; z-index: 1; width: 86px; display: block; overflow: visible; } /* stands just behind the third lot */
+.cat-svg { width: 100%; height: auto; overflow: visible; }
+.cat .eye-white, .verso-cat .eye-white { fill: var(--paper); }
+.cat .pupil, .verso-cat .pupil, .cat .lid, .verso-cat .lid { fill: var(--ink); }
+.cat:active .cat-svg { scale: .98; }
+.cat-svg { transition: scale var(--d-tap) var(--snap); transform-origin: 50% 100%; }
+
+.boxwell { position: absolute; right: -24px; bottom: 0; width: 140px; height: 230px; overflow: hidden; pointer-events: none; }
+.sbox { position: absolute; left: 4px; bottom: 0; width: 104px; height: 66px; transform: translateY(105%); }
+.sbox-back { z-index: 1; background: #CDBFA8; border: 1.5px solid var(--ink); border-bottom: 0; }
+.sbox-front { z-index: 3; }
+.sbox-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sbox-label { position: absolute; left: 8px; right: 8px; top: 30px; font-size: 7.5px; line-height: 1.25; color: var(--ink); text-align: left; }
+.sbox-lid { position: absolute; right: 0; top: -1px; width: 52px; height: 7px; background: #D8CCB8; border: 1.5px solid var(--ink); transform-origin: 100% 50%; }
+
+.plinth-face {
+  position: absolute; left: calc(var(--gutter) - 6px); right: calc(var(--gutter) - 6px); bottom: calc(var(--plinth) - 120px); height: 110px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 100px)) 1fr; gap: 2px; align-items: start; pointer-events: none;
+}
+.cap { position: relative; padding-top: 6px; max-width: 96px; }
+.cap-t { display: grid; gap: 2px; color: var(--ink); }
+.cap-t .mono { font-size: 8.5px; }
+.cap-t i { font: italic 400 14px/1.1 var(--f-serif); color: var(--muted); }
+.cap-tag { position: absolute; left: 0; right: 0; top: 6px; font-size: 9px; color: var(--red); visibility: hidden; opacity: 0; }
+.cap-price { grid-column: 1 / -1; justify-self: center; margin-top: 10px; font-size: 22px; line-height: 1; transform: rotate(-3deg); }
+.cat-byline { justify-self: end; padding-top: 6px; font-size: 8.5px; color: var(--ink); max-width: 92px; text-align: center; width: 92px; }
+
+/* verso */
+.byline-card { margin-top: 18px; padding: 14px 16px; background: var(--paper); box-shadow: var(--sh-paper); max-width: 320px; border-left: 2px solid var(--red); }
+.byline-card .mono { color: var(--red); margin-bottom: 6px; }
+.byline-card .deck { font-size: 19px; }
+.verso-cat .lid { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(.42); }
+.verso-cat { margin-top: auto; align-self: center; width: min(58%, 300px); }
+.verso-cat .cat-svg { filter: drop-shadow(0 18px 18px rgb(20 18 16 / .18)); }
+
+@media (min-width: 1024px) {
+  .gifts-head { left: 40px; right: 48px; top: 56px; }
+  .gifts-note { top: 270px; right: 48px; }
+  .blink-note { top: 330px; left: 40px; }
+  .stage-row, .plinth-face { left: 36px; right: 44px; grid-template-columns: repeat(3, minmax(0, 128px)) 1fr; gap: 14px; }
+  .stage-row { height: 180px; }
+  .cat { width: 124px; right: 0; }
+  .cap { max-width: 128px; }
+  .boxwell { right: 0; }
+  .plinth-face { bottom: calc(var(--plinth) - 130px); }
+  .cap-t .mono { font-size: 9.5px; }
+}
+@media (max-height: 760px) and (max-width: 599px) { .gifts { --plinth: 32%; } .gifts-note { top: calc(var(--sat) + 260px); } .blink-note { top: calc(var(--sat) + 320px); } }
+
+/* ---------- re-architected: unwrap three gifts, each reveals a coupon card ---------- */
+.gifts-head { top: calc(var(--sat) + 64px); }
+.gift-card {
+  position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--sat) + 210px); z-index: 6;
+  margin-inline: auto; max-width: 340px; padding: 16px 18px 14px; text-align: center;
+  background: var(--paper); border: 1.5px dashed var(--red); border-radius: 6px; box-shadow: var(--sh-lift);
+}
+.gift-card[hidden] { display: none; }
+.gc-no { color: var(--red); font-size: 10px; }
+.gc-emoji { font-size: 34px; line-height: 1; margin: 8px 0 4px; }
+.gc-title { font: 900 clamp(22px, 6.6cqi, 30px)/1.05 var(--f-bodoni); color: var(--ink); }
+.gc-line { margin-top: 8px; font: 400 22px/1.05 var(--f-hand); color: var(--ink); }
+.gc-foot { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgb(20 18 16 / .15); font-size: 9px; color: var(--muted); }
+.gift { cursor: pointer; }
+.gift-tap {
+  position: absolute; left: 50%; top: -22px; translate: -50% 0; padding: 3px 8px 2px; border-radius: 999px;
+  background: var(--red); color: var(--paper); font: 400 15px/1 var(--f-hand); white-space: nowrap; pointer-events: none;
+  animation: tapme 1.2s ease-in-out infinite;
+}
+@keyframes tapme { 50% { translate: -50% -5px; } }
+.gift.is-open .gift-tap { display: none; }
+.gift.is-open svg { filter: saturate(1.2); }
+.cap-state { color: var(--red) !important; font-style: normal !important; font-family: var(--f-hand) !important; font-size: 18px !important; }
+.cap-state.is-open { color: var(--muted) !important; }
+.cat-byline { line-height: 1.4; }
+.gifts-count { grid-column: 1 / -1; justify-self: center; margin-top: 8px; font-size: 10px; color: var(--ink); letter-spacing: .1em; }
+.cat .heart { position: absolute; left: 50%; top: -6px; color: var(--red); font-size: 26px; line-height: 1; pointer-events: none; opacity: 0; }
+.confetti { position: absolute; z-index: 7; width: 7px; height: 11px; border-radius: 1px; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .gift-tap { animation: none; } }
+@media (min-width: 1024px) { .gift-card { top: 210px; } }

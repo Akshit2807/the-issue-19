@@ -1,0 +1,83 @@
+/* Scene 1 · press — dark, full-bleed. Accents: red, espresso. */
+.page[data-scene="press"] .recto { background: radial-gradient(ellipse 80% 60% at 50% 42%, #241B16 0%, var(--table) 55%, #100D0B 100%); }
+.press { position: absolute; inset: 0; color: var(--paper); }
+.press-stack {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 28px; padding: calc(var(--sat) + 40px) var(--gutter) calc(var(--sab) + 12vh);
+}
+.press-label { color: var(--paper-dim); text-align: center; }
+.dial { position: relative; width: min(280px, 72vw); aspect-ratio: 1; }
+.dial-svg { width: 100%; height: 100%; overflow: visible; }
+.ring { fill: none; stroke: var(--espresso); stroke-linecap: round; }
+.ring-edge { stroke-width: 3.5; stroke: #6B4434; opacity: .9; }
+.ring-bleed { stroke-width: 13; opacity: .28; }
+.ring-echo { stroke-width: 2; stroke: #6B4434; opacity: .55; }
+.ring-drip { fill: var(--espresso); stroke: none; opacity: .5; }
+.ring-tint { fill: var(--espresso); opacity: 0; fill-opacity: .16; }
+.ticks line { stroke: var(--paper-dim); stroke-width: 1; opacity: .5; }
+.hand-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; animation: sweep 60s linear infinite; }
+@keyframes sweep { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .hand-svg { animation: none; } }
+.hand line { stroke: var(--red); stroke-width: 1.25; stroke-linecap: round; }
+.hand circle { fill: var(--red); }
+.clock {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font: 500 44px/1 var(--f-bodoni); font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.01em; color: var(--paper);
+}
+.slot { position: relative; display: inline-block; overflow: hidden; height: 1.05em; width: .62em; text-align: center; }
+.slot .dg { position: absolute; inset: 0; display: block; line-height: 1.05; }
+.colon { display: inline-block; width: .3em; text-align: center; color: var(--paper-dim); transform: translateY(-.06em); }
+.press-note { min-height: 2.4em; max-width: 30ch; text-align: center; transform: rotate(-1.5deg); }
+
+.strike {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--sat) + 60px) var(--gutter) calc(var(--sab) + 120px);
+}
+.strike-hwrap { position: relative; transform-origin: 0 60%; }
+.strike-h { color: var(--paper); font-size: clamp(52px, 16cqi, 168px); }
+.strike-ghost { position: absolute; inset: 0; color: var(--red); opacity: 0; pointer-events: none; mix-blend-mode: screen; }
+.marks { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.marks path, .marks circle { fill: none; stroke: var(--paper-dim); stroke-width: 1; }
+.strike-h .ml { white-space: nowrap; }
+.strike-h .ml:nth-child(2) { padding-left: .4em; }
+.strike-deck { margin-top: 26px; color: var(--paper-dim); max-width: 22ch; }
+.strike-btn {
+  position: absolute; left: var(--gutter); right: var(--gutter); bottom: calc(var(--sab) + 64px); width: auto;
+  color: var(--paper); border-color: var(--red); background: rgb(176 46 24 / .08);
+}
+.strike-btn::before { background: var(--red); }
+@media (hover: hover) { .strike-btn:hover::before { opacity: .35; } }
+.flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 30; }
+
+@media (min-width: 1024px) {
+  .dial { width: 360px; }
+  .clock { font-size: 56px; }
+  .press-label { font-size: 12px; }
+  .strike { align-items: center; text-align: center; padding-bottom: 180px; }
+  .strike-h .ml:nth-child(2) { padding-left: 0; }
+  .strike-hwrap { transform-origin: 50% 60%; }
+  .strike-deck { margin-inline: auto; max-width: 30ch; }
+  .strike-btn { left: 50%; right: auto; width: 360px; margin-left: -180px; bottom: 96px; }
+}
+/* desktop: keep the SOUND chip clear of the top-right crop mark */
+@media (min-width: 1024px) { body[data-scene="press"] .sound-btn { right: calc(var(--sar) + 72px); } }
+
+/* ---------- the magic-word lock ---------- */
+.lock { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: calc(var(--sat) + 40px) var(--gutter) 24px; text-align: center; color: var(--paper); }
+.lock[hidden] { display: none; }
+.padlock { width: 64px; height: 78px; overflow: visible; margin-bottom: 6px; }
+.lock-title { font-size: clamp(36px, 10cqi, 64px); font-style: italic; color: var(--paper); }
+.lock-sub { max-width: 28ch; color: var(--paper-dim); }
+.lock-field { position: relative; display: block; margin-top: 10px; }
+.lock-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; font-size: 16px; border: 0; background: none; color: transparent; caret-color: transparent; }
+.lock-slots { display: flex; gap: 10px; pointer-events: none; }
+.lock-slots i { width: 46px; height: 58px; display: grid; place-items: center; border-radius: 10px; border: 2px solid rgb(241 234 221 / .35); font: italic 900 30px/1 var(--f-bodoni); font-style: normal; color: var(--paper); text-transform: lowercase; transition: border-color .25s, background .25s, scale .25s var(--snap); }
+.lock-slots i.is-on { border-color: var(--paper); background: rgb(241 234 221 / .08); scale: 1.04; }
+.lock-slots i.is-cursor { border-color: var(--red); box-shadow: 0 0 0 4px rgb(176 46 24 / .25); }
+.lock-slots i.is-ok { border-color: #7FE0B5; background: rgb(127 224 181 / .18); }
+.lock-input:focus-visible + .lock-slots { outline: 2px solid var(--red); outline-offset: 6px; border-radius: 12px; }
+.lock-count { color: var(--flame); letter-spacing: .14em; }
+.lock-msg { min-height: 1.2em; font-size: 26px; color: var(--petal); transform: rotate(-1.5deg); }
+.lock .lock-btn { position: static; width: min(320px, 100%); margin-top: 4px; }
+.lock-hint-btn { font: 400 20px/1.15 var(--f-hand); color: var(--paper-dim); text-decoration: underline dotted; text-underline-offset: 4px; max-width: 30ch; padding: 6px; }
+.lock-hint-btn.is-shown { color: var(--flame); text-decoration: none; }

@@ -1,0 +1,69 @@
+/* Scene 9 · back — the back cover (paper) on the table. Accents: red, foil. */
+.page[data-scene="back"] .recto { background: var(--table); }
+.back { position: absolute; inset: 0; }
+.bcover {
+  position: absolute; inset: 0; display: block; background: var(--paper); color: var(--ink); text-align: center; cursor: pointer;
+  container: bcover / size;
+}
+.bcover::before { content: ""; position: absolute; inset: 0; background: url(../../assets/textures/paper.webp) 0 0 / 512px; mix-blend-mode: multiply; opacity: .35; pointer-events: none; }
+.bc-border { position: absolute; inset: calc(var(--sat) + 76px) 16px calc(var(--sab) + 60px); border: 1px solid var(--ink); pointer-events: none; }
+.bc-ad {
+  position: absolute; inset: calc(var(--sat) + 76px) 16px calc(var(--sab) + 60px);
+  display: flex; flex-direction: column; align-items: center; padding: 24px 18px 22px; gap: 10px;
+}
+.bc-top { color: var(--muted); }
+.bc-word { display: block; margin-top: 6px; font: 900 clamp(34px, 11.6cqi, 96px)/.9 var(--f-bodoni); letter-spacing: -.04em; white-space: nowrap; }
+.bc-deck { color: var(--ink); margin-top: -2px; }
+/* the product shot: a luxury ad is mostly product */
+.bc-product { position: relative; flex: 1; min-height: 0; width: 100%; }
+/* sized by the room left between the deck and the notes: the bottle never sits on the small print */
+.bc-bottle { position: absolute; left: 0; top: 0; bottom: 0; margin: auto 0; width: 100%; height: 100%; max-height: 210px; overflow: visible; filter: drop-shadow(0 18px 18px rgb(20 18 16 / .14)); }
+.bc-label { font-family: var(--f-bodoni); font-weight: 900; fill: var(--ink); letter-spacing: -.02em; }
+.bc-notes { font-size: 10px; letter-spacing: .1em; color: var(--ink); text-align: center; }
+.bc-terms { display: block; max-width: 36ch; font-size: 8.5px; line-height: 1.45; color: var(--muted); text-transform: none; letter-spacing: .03em; }
+.bc-foil { display: block; width: 64px; height: 2px; background: var(--foil); }
+.bc-next { display: block; max-width: 18ch; font-size: clamp(18px, 5.4cqi, 30px); }
+.bc-hint { color: var(--red); }
+.bc-hint::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); margin-right: 8px; vertical-align: 1px; animation: rec 1.6s var(--breathe) infinite; }
+.bcover:active { scale: .995; }
+.bcover { transition: scale var(--d-tap) var(--snap); }
+.bcover:focus-visible { outline-offset: -8px; }
+
+.shreds { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.shred {
+  position: absolute; left: 0; top: 0; padding: 9px 13px 8px; max-width: 200px; opacity: 0;
+  background: var(--paper); color: var(--ink); box-shadow: 0 1px 0 rgb(20 18 16 / .06);
+}
+.shred.is-news { background: var(--newsprint); }
+.shred.is-red { color: var(--red); }
+.shred--mono { font: 500 9px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.shred--serif { font: italic 500 14px/1.15 var(--f-bodoni); }
+.shred--big { font: italic 900 22px/1 var(--f-bodoni); letter-spacing: -.02em; padding: 8px 14px 6px; }
+
+.finale { position: absolute; inset: 0; z-index: 4; pointer-events: none; visibility: hidden; }
+.finale-h {
+  position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--sat) + 13%);
+  color: var(--red); font-size: clamp(60px, 18cqi, 140px); text-shadow: 0 2px 0 var(--paper), 0 0 18px rgb(241 234 221 / .85);
+}
+.finale-h .ml:nth-child(2) { padding-left: .5em; }
+.finale-actions {
+  position: absolute; left: calc(var(--gutter) - 12px); right: calc(var(--gutter) - 12px); bottom: calc(var(--sab) + 48px);
+  display: grid; gap: 10px; pointer-events: auto; padding: 12px; background: rgb(241 234 221 / .92); box-shadow: var(--sh-paper);
+} /* a placed card, not buttons cutting through the pile */
+.again { background: var(--paper); color: var(--ink); }
+.reply { color: var(--paper); }
+.colophon { text-align: center; font-size: 25px; margin-top: 4px; text-shadow: 0 0 10px var(--paper), 0 0 2px var(--paper); }
+.credits { justify-self: center; min-height: 44px; display: inline-flex; align-items: center; font-size: 9px; color: var(--muted); padding: 0 8px; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (min-width: 1024px) {
+  .page[data-scene="back"] .recto { background: transparent; }
+  .bcover { inset: auto; left: 50%; top: 50%; height: 86svh; aspect-ratio: 3 / 4; translate: -50% -50%; rotate: 1.2deg; box-shadow: var(--sh-spread); }
+  .bc-border, .bc-ad { inset: 24px; }
+  /* the finale lives inside the cover: no half-spill over the table */
+  .finale { inset: auto; left: 50%; top: 50%; height: 86svh; aspect-ratio: 3 / 4; translate: -50% -50%; rotate: 1.2deg; container: finale / inline-size; }
+  .finale-h { left: 0; right: 0; text-align: center; top: 7%; font-size: min(128px, 16cqi); text-shadow: 0 2px 0 var(--paper); }
+  .finale-h .ml:nth-child(2) { padding-left: 0; }
+  .bc-bottle { max-height: 300px; }
+  .finale-actions { left: 50%; right: auto; width: 380px; margin-left: -190px; bottom: 6%; }
+}
+@media (prefers-reduced-motion: reduce) { .bc-hint::before { animation: none; } }
