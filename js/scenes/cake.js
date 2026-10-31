@@ -1,4 +1,5 @@
 /* Scene 4 · cake — Still Life with Cake. Feeling: HUSH / WONDER, the room going quiet before a wish. */
+import { requestMic, micGranted, stopMicTracks, audioCtx } from '../mic.js';
 const gsap = window.gsap;
 
 /* bottom-tier front arc: x = 150 - 99.6cos t, y = cy + 13 sin t, t in [0, π] */
@@ -224,29 +225,36 @@ export default {
     });
     ctx.on(window, 'keyup', e => { if (e.key === ' ' || e.key === 'Enter') endHold(); });
 
-    /* mic (opt-in) */
+    /* mic: allowed at the start -> listen straight away; otherwise one tap asks */
     const micBtn = $('.mic');
-    if (micBtn) ctx.on(micBtn, 'click', async () => {
-      try {
-        this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const ac = new (window.AudioContext || window.webkitAudioContext)();
-        this.ac = ac;
-        const an = ac.createAnalyser(); an.fftSize = 512;
-        ac.createMediaStreamSource(this.stream).connect(an);
-        const buf = new Float32Array(an.fftSize);
-        let since = 0;
-        micBtn.textContent = 'listening… blow.';
-        const loop = now => {
-          if (!this.stream) return;
-          an.getFloatTimeDomainData(buf);
-          const rms = Math.sqrt(buf.reduce((a, v) => a + v * v, 0) / buf.length);
-          if (rms > 0.12) { since ||= now; if (now - since > 150) { since = 0; const r = $('.still').getBoundingClientRect(); blowOut(nearest(r.left + r.width / 2)); } }
-          else since = 0;
-          this.raf = requestAnimationFrame(loop);
-        };
+    const listen = async () => {
+      if (this.listening) return;
+      const stream = await requestMic();
+      if (!stream) { if (micBtn) micBtn.textContent = 'mic blocked. press & hold instead 🎂'; return; }
+      this.listening = true;
+      const ac = audioCtx();
+      this.ac = ac;
+      if (ac.state === 'suspended') { try { await ac.resume(); } catch {} }
+      const an = ac.createAnalyser(); an.fftSize = 1024;
+      this.src = ac.createMediaStreamSource(stream); this.src.connect(an);
+      const buf = new Float32Array(an.fftSize);
+      let since = 0, floor = 0.01;
+      if (micBtn) micBtn.textContent = 'listening… blow on your screen 🌬️';
+      const loop = now => {
+        if (!this.listening) return;
+        an.getFloatTimeDomainData(buf);
+        let sum = 0; for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+        const rms = Math.sqrt(sum / buf.length);
+        floor = Math.min(0.05, floor * 0.995 + rms * 0.005);          // slow-tracking room noise
+        if (rms > Math.max(0.045, floor * 3)) { since ||= now; if (now - since > 120) { since = 0; const r = $('.still').getBoundingClientRect(); blowOut(nearest(r.left + r.width / 2)); } }
+        else since = 0;
         this.raf = requestAnimationFrame(loop);
-      } catch { micBtn.hidden = true; }
-    });
+      };
+      this.raf = requestAnimationFrame(loop);
+    };
+    if (micBtn) ctx.on(micBtn, 'click', () => { if (this.ac?.state === 'suspended') this.ac.resume(); listen(); });
+    if (micBtn) micGranted().then(ok => ok && listen());
+    ctx.on(el, 'pointerdown', () => { if (this.ac?.state === 'suspended') this.ac.resume(); });
 
     /* all out: the Hush (input locked, ~9s) */
     let hushTl = null, hurryAt = Infinity;
@@ -281,9 +289,10 @@ export default {
 
   stopMic() {
     cancelAnimationFrame(this.raf);
-    this.stream?.getTracks().forEach(t => t.stop());
-    this.stream = null;
-    this.ac?.close?.(); this.ac = null;
+    this.listening = false;
+    try { this.src?.disconnect(); } catch {}
+    this.src = null;
+    stopMicTracks();   // candles are out: the mic light goes off
   },
   leave() { this.stopMic(); },
 };

@@ -22,6 +22,7 @@ const now = () => new Date(Date.now() + offset);
 if (motion.reduced) document.documentElement.classList.add('reduce');
 window.gsap.config({ force3D: 'auto' });   // no lingering translate3d layers once a scene settles
 sound.init(config);
+addEventListener('pointerdown', () => sound.unlock(), { once: true, capture: true });   // after the unlock reload, music resumes on her first tap
 
 const start = () => createManager({
   config, now,
