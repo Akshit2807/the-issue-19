@@ -55,3 +55,6 @@
 
 @media (max-width: 1023px) { .cake .wall-label { bottom: 14px; width: 230px; padding: 7px 10px; } .cake .wall-label .wl-body { font-size: 9.5px; } }
 @media (max-width: 1023px) { .cake .instruction { top: 73%; } .cake .mic { top: calc(73% + 26px); } }
+
+/* press & hold must survive a phone long-press: no scroll, no text selection, no iOS callout cancelling the hold */
+.cake, .cake * { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
