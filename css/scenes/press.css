@@ -81,3 +81,7 @@
 .lock .lock-btn { position: static; width: min(320px, 100%); margin-top: 4px; }
 .lock-hint-btn { font: 400 20px/1.15 var(--f-hand); color: var(--paper-dim); text-decoration: underline dotted; text-underline-offset: 4px; max-width: 30ch; padding: 6px; }
 .lock-hint-btn.is-shown { color: var(--flame); text-decoration: none; }
+/* lock: keep the old desktop strike-btn offsets off the UNLOCK button; never clip the padlock */
+.lock { justify-content: safe center; overflow-y: auto; }
+.lock .lock-btn { margin: 4px auto 0 !important; left: auto !important; right: auto !important; bottom: auto !important; }
+@media (min-width: 1024px) { .lock-title { font-size: 56px; } .lock { gap: 12px; padding-top: 48px; } }
