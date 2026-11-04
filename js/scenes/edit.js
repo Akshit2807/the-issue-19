@@ -152,6 +152,7 @@ export default {
     });
 
     const printReceipt = () => {
+      el.querySelector('.edit')?.scrollTo?.({ top: 0, behavior: R ? 'auto' : 'smooth' });   // the receipt prints at the top
       ctx.quiet();   // the receipt is the call to action now: no skip chip over it
       const tl = gsap.timeline();
       tl.to($('.passport'), { scale: R ? 1 : 0.86, y: R ? 0 : -40, opacity: 0.35, duration: 0.6, ease: 'power2.inOut' }, 0)

@@ -58,3 +58,5 @@
 
 /* press & hold must survive a phone long-press: no scroll, no text selection, no iOS callout cancelling the hold */
 .cake, .cake * { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+.cake .mic { z-index: 5; }

@@ -104,3 +104,23 @@
   .slot-btn { height: 76px; }
   .memo-area { height: 150px; }
 }
+
+/* ---------- mobile: real document flow (no absolute stacking), scrolls if the phone is short ---------- */
+@media (max-width: 1023px) {
+  .edit { display: flex; flex-direction: column; gap: 16px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding: calc(var(--sat) + 56px) var(--gutter) 28px; }
+  .edit-head, .passport, .memo-area { position: relative; left: auto; right: auto; top: auto; bottom: auto; flex: none; }
+  .edit-head { padding-right: 0; }
+  .memo-area { height: auto; min-height: 96px; }
+  .memo { position: relative; inset: auto; grid-template-columns: 1fr; }
+  .memo-empty { position: static; padding: 6px 0; }
+  .slot-btn { height: 80px; }
+  .receipt-clip { top: calc(var(--sat) + 60px); bottom: 12px; }
+  .printer { top: calc(var(--sat) + 54px); }
+}
+@media (max-width: 1023px) and (max-height: 760px) {
+  .edit-title { font-size: 34px; }
+  .edit-deck { font-size: 15px; }
+  .slot-btn { height: 70px; }
+  .passport { top: auto; }
+}

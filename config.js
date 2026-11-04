@@ -19,7 +19,7 @@ export default {
       "cover": "tap anywhere on the cover to make art ✨",
       "release": "sign the form… or think about it first 🖋",
       "cake": "allow the mic & blow on your screen 🌬️ (or press & hold)",
-      "edit": "tap each passport stamp ✈️",
+      "edit": "tap all 6 stamps ✈️ then stamp the receipt to accept",
       "gifts": "tap each gift to unwrap it 🎁",
       "specimens": "tap anywhere to add a flower 💐 (19 of them!)",
       "letter": "tap the envelope, then scroll slowly 💌",
